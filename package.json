@@ -1,0 +1,22 @@
+{
+  "name": "deploy-casper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "imsk17",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "deploy-bridge": "yarn build && node dist/bridge.js",
+    "deploy-xpnft": "yarn build && node dist/xpnft.js"
+  },
+  "dependencies": {
+    "casper-cep78-js-client": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "xpbridge-client": "git+https://github.com/XP-NETWORK/xp-casper-bridge-client#bleeding-edge"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  }
+}
