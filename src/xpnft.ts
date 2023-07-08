@@ -8,12 +8,14 @@ import {
   EventsMode,
   MetadataMutability,
   MintingMode,
+  NFTHolderMode,
   NFTIdentifierMode,
   NFTKind,
   NFTMetadataKind,
   NFTOwnershipMode,
   WhitelistMode,
-} from "casper-cep78-js-client";
+} from "casper-cep78-js-client/dist/src";
+import { readFileSync } from "fs";
 
 config();
 
@@ -54,21 +56,28 @@ const read = readline.createInterface({
       {
         collectionName,
         collectionSymbol,
-        whitelistMode: WhitelistMode.Unlocked,
         identifierMode: NFTIdentifierMode.Ordinal,
         metadataMutability: MetadataMutability.Immutable,
         nftKind: NFTKind.Digital,
-        ownershipMode: NFTOwnershipMode.Transferable,
         nftMetadataKind: NFTMetadataKind.Raw,
-        totalTokenSupply,
-        burnMode: BurnMode.Burnable,
+        ownershipMode: NFTOwnershipMode.Transferable,
         allowMinting: true,
-        contractWhitelist: [bridgeToWhitelist],
-        eventsMode: EventsMode.CES,
+        burnMode: BurnMode.Burnable,
+        whitelistMode: WhitelistMode.Unlocked,
         mintingMode: MintingMode.Public,
+        totalTokenSupply: totalTokenSupply,
+        holderMode: NFTHolderMode.Mixed,
+        eventsMode: EventsMode.CES,
+        hashKeyName: `${collectionName}-hash`,
+        contractWhitelist: [bridgeToWhitelist],
+        jsonSchema: {
+          properties: {},
+        },
       },
-      "200000000000",
-      key.publicKey
+      "300000000000",
+      key.publicKey,
+      [key],
+      readFileSync("./src/xpnft.wasm")
     )
     .send(NODE);
 

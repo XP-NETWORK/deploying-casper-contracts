@@ -63,6 +63,13 @@
     casper-js-sdk "^2.11.0"
     ts-results "^3.3.0"
 
+"@make-software/ces-js-parser@^1.3.1":
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/@make-software/ces-js-parser/-/ces-js-parser-1.3.3.tgz#7e50b2824f6189f365662fa81e1a2eb22dfcb214"
+  integrity sha512-uJ7BgnaVbb1pkGfDCgBqES+f5+RVlVPkAYxOC6Qz9kxzIcu9HYH1eA+8EkjRO2T36uBemTjBRO6R0TdH61PIAA==
+  dependencies:
+    ts-results "^3.3.0"
+
 "@noble/curves@~1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@noble/curves/-/curves-1.0.0.tgz#e40be8c7daf088aaf291887cbc73f43464a92932"
@@ -312,7 +319,14 @@ buffer-xor@^1.0.3:
   resolved "https://registry.yarnpkg.com/buffer-xor/-/buffer-xor-1.0.3.tgz#26e61ed1422fb70dd42e6e36729ed51d855fe8d9"
   integrity sha512-571s0T7nZWK6vB67HI5dyUF7wXiNcfaPPPTl6zYCNApANjIvYJTg7hlud/+cJpdAhS7dVzqMLmfhfHR3rAcOjQ==
 
-casper-cep78-js-client@=1.4.0, casper-cep78-js-client@^1.4.0:
+casper-cep78-js-client@=1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/casper-cep78-js-client/-/casper-cep78-js-client-1.3.0.tgz#feb35b81b6c61eba77a29124b0065fddfdce08cd"
+  integrity sha512-A6eJQflEXgwjttShfgnqoFxE8PNAchZ1LciQz9ktoNd8lKIau7vADKNxaXN3TNMg10JvgN3Cl5+v6oL5plzQgg==
+  dependencies:
+    "@ethersproject/bignumber" "^5.7.0"
+
+casper-cep78-js-client@=1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/casper-cep78-js-client/-/casper-cep78-js-client-1.4.0.tgz#e9bd313c0bfafc8f4256a6dd9093f17a3f32887b"
   integrity sha512-AG8xwugy1DFFgYYuZc0QgTR6v22QFLILTjynFunhASuopNMxoQhh6DeCYnfcgHRCnyQ/lrTbF27azCj8XYVCFQ==
@@ -871,10 +885,10 @@ ws@^7.0.0:
 
 "xpbridge-client@git+https://github.com/XP-NETWORK/xp-casper-bridge-client#bleeding-edge":
   version "1.2.0"
-  resolved "git+https://github.com/XP-NETWORK/xp-casper-bridge-client#58e2d57739a386d35c49106492b7c7de40fff210"
+  resolved "git+https://github.com/XP-NETWORK/xp-casper-bridge-client#9faf2fb9836003844200873a2d861c877138e3b1"
   dependencies:
     "@ethersproject/bignumber" "^5.7.0"
-    "@make-software/ces-js-parser" "=1.1.0"
+    "@make-software/ces-js-parser" "^1.3.1"
     "@noble/ed25519" "^1.7.1"
     casper-cep78-js-client "=1.4.0"
     casper-js-sdk "=2.12.1"
