@@ -31,10 +31,10 @@ const NODE = process.env.RPC!;
 const NETWORK = process.env.NETWORK_NAME!;
 const PK = process.env.PRIVATE_KEY!;
 
-const priv = Keys.Ed25519.parsePrivateKey(Buffer.from(PK, "base64"));
+const priv = Keys.Secp256K1.parsePrivateKey(Buffer.from(PK, "base64"));
 
-const pub = Keys.Ed25519.privateToPublicKey(priv);
-const key = Keys.Ed25519.parseKeyPair(pub, priv);
+const pub = Keys.Secp256K1.privateToPublicKey(priv);
+const key = Keys.Secp256K1.parseKeyPair(pub, priv, "raw");
 
 const client = new CasperClient(NODE);
 

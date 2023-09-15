@@ -4,10 +4,8 @@ import { getAccountInfo, getDeploy } from "./utils";
 import readline from "readline";
 import {
   BurnMode,
-  CEP78Client,
   EventsMode,
   MetadataMutability,
-  MintingMode,
   NFTHolderMode,
   NFTIdentifierMode,
   NFTKind,
@@ -15,6 +13,7 @@ import {
   NFTOwnershipMode,
   WhitelistMode,
 } from "casper-cep78-js-client/dist/src";
+import { CEP78Client, MintingMode } from "./nft-client";
 import { readFileSync } from "fs";
 
 config();
@@ -45,12 +44,17 @@ const read = readline.createInterface({
   );
 
   const bridgeToWhitelist = await new Promise<string>((res) =>
-    read.question("Enter Bridge Address (prefixed with contract-hash-): ", res)
+    read.question("Enter Bridge Address (prefixed with hash-): ", res)
   );
 
   const totalTokenSupply = await new Promise<string>((res) =>
     read.question("Enter Total Token Supply (Max-1000000): ", res)
   );
+
+  const royaltyContract = await new Promise<string>((res) =>
+    read.question("Enter The contract hash of the royalty contract: ", res)
+  );
+
   const deployed = await client
     .install(
       {
@@ -64,20 +68,20 @@ const read = readline.createInterface({
         allowMinting: true,
         burnMode: BurnMode.Burnable,
         whitelistMode: WhitelistMode.Unlocked,
-        mintingMode: MintingMode.Public,
+        mintingMode: MintingMode.ACL,
         totalTokenSupply: totalTokenSupply,
         holderMode: NFTHolderMode.Mixed,
         eventsMode: EventsMode.CES,
         hashKeyName: `${collectionName}-hash`,
-        contractWhitelist: [bridgeToWhitelist],
+        acl_whitelist: [bridgeToWhitelist],
         jsonSchema: {
           properties: {},
         },
       },
       "300000000000",
       key.publicKey,
-      [key],
-      readFileSync("./src/xpnft.wasm")
+      readFileSync("./src/xpnft.wasm"),
+      [key]
     )
     .send(NODE);
 
