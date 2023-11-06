@@ -51,9 +51,9 @@ const read = readline.createInterface({
     read.question("Enter Total Token Supply (Max-1000000): ", res)
   );
 
-  const royaltyContract = await new Promise<string>((res) =>
-    read.question("Enter The contract hash of the royalty contract: ", res)
-  );
+  let royaltyContract = await new Promise<string>((res) =>
+    read.question("Enter The contract hash of the transfer-filter royalty contract (or can leave empty): ", res)
+  ).then((e) => (e === "" ? undefined : e));
 
   const deployed = await client
     .install(
@@ -74,6 +74,7 @@ const read = readline.createInterface({
         eventsMode: EventsMode.CES,
         hashKeyName: `${collectionName}-hash`,
         acl_whitelist: [bridgeToWhitelist],
+        transfer_filter_contract: royaltyContract,
         jsonSchema: {
           properties: {},
         },
