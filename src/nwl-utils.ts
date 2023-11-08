@@ -43,7 +43,7 @@ const read = readline.createInterface({
   ).then((e) => new CLByteArray(Buffer.from(e, "hex")));
 
   const action_count = await new Promise<string>((res) =>
-    read.question("Enter Action Count in Decimal", res)
+    read.question("Enter Action Count in Decimal: ", res)
   ).then((e) => new CLU256(e));
 
   const number = new CLU512(Math.floor(Math.random() * 10000))
@@ -57,7 +57,7 @@ const read = readline.createInterface({
         action_count,
         number
       }),
-      "300000000000",
+      "110000000000",
       key.publicKey,
       NETWORK,
       [key]
@@ -72,9 +72,11 @@ const read = readline.createInterface({
 
   console.log(`Deployed.`);
 
+  await new Promise((e) => setTimeout(e, 10000))
+
   const accInfo = await getAccountInfo(NODE, key.publicKey);
   const contractHash = accInfo.namedKeys
-    .filter((e: any) => e.name === `no_whitelist${number.value.toString()}`)
+    .filter((e: any) => e.name === `nwl`)
     .map((e: any) => e.key)[0];
 
   console.log(`Contract Hash: ${contractHash}`);
