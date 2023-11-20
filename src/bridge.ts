@@ -3,6 +3,7 @@ import { XpBridgeClient } from "xpbridge-client";
 import { Keys } from "casper-js-sdk";
 import { getAccountInfo, getDeploy } from "./utils";
 import readline from "readline";
+import { readFileSync } from "fs";
 
 config();
 
@@ -24,7 +25,7 @@ const read = readline.createInterface({
 
 (async () => {
   const deployed = await client
-    .deploy("200000000000", key.publicKey)
+    .deploy("200000000000", key.publicKey, [key], readFileSync("src/bridge.wasm"))
     .send(NODE);
 
   console.log(`Deployed Hash:  ${deployed}`);
