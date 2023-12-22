@@ -1,5 +1,5 @@
 import { config } from "dotenv";
-import { Keys } from "casper-js-sdk";
+import { CLAccountHash, Keys } from "casper-js-sdk";
 import { getAccountInfo, getDeploy } from "./utils";
 import readline from "readline";
 import {
@@ -51,8 +51,11 @@ const read = readline.createInterface({
     read.question("Enter Total Token Supply (Max-1000000): ", res)
   );
 
-  let royaltyContract = await new Promise<string>((res) =>
-    read.question("Enter The contract hash of the transfer-filter royalty contract (or can leave empty): ", res)
+  const royaltyContract = await new Promise<string>((res) =>
+    read.question(
+      "Enter The contract hash of the transfer-filter royalty contract (or can leave empty): ",
+      res
+    )
   ).then((e) => (e === "" ? undefined : e));
 
   const deployed = await client
@@ -73,7 +76,7 @@ const read = readline.createInterface({
         holderMode: NFTHolderMode.Mixed,
         eventsMode: EventsMode.CES,
         hashKeyName: `${collectionName}-hash`,
-        acl_whitelist: [bridgeToWhitelist],
+        acl_whitelist: [key.publicKey.toAccountHashStr()],
         transfer_filter_contract: royaltyContract,
         jsonSchema: {
           properties: {},

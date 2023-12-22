@@ -13,6 +13,7 @@ import {
   WhitelistMode,
 } from "casper-cep78-js-client/dist/src";
 import {
+  CLAccountHash,
   CLByteArray,
   CLKey,
   CLPublicKey,
@@ -37,10 +38,25 @@ const convertHashStrToHashBuff = (hashStr: string) => {
   return Buffer.from(hashHex, "hex");
 };
 
+const convertHashStrToHashBuffV2 = (hashStr: string) => {
+  let hashHex = hashStr;
+  if (hashStr.startsWith("hash-")) {
+    hashHex = hashStr.slice(5);
+  }
+  if (hashStr.startsWith("account-hash-")) {
+    hashHex = hashStr.slice("account-hash-".length);
+    return new CLKey(new CLAccountHash(Buffer.from(hashHex, "hex")));
+  }
+  return new CLKey(new CLByteArray(Buffer.from(hashHex, "hex")));
+};
+
 const buildHashList = (list: string[]) =>
   list.map((hashStr) =>
     CLValueBuilder.byteArray(convertHashStrToHashBuff(hashStr))
   );
+
+const buildHashListV2 = (list: string[]) =>
+  list.map((hashStr) => convertHashStrToHashBuffV2(hashStr));
 
 export type ConfigurableVariables = {
   allowMinting?: boolean;
@@ -137,7 +153,7 @@ export class CEP78Client {
     }
 
     if (args.contractWhitelist !== undefined) {
-      const list = buildHashList(args.contractWhitelist);
+      const list = buildHashListV2(args.contractWhitelist);
       runtimeArgs.insert("contract_whitelist", CLValueBuilder.list(list));
     }
 
