@@ -16,6 +16,7 @@ import {
   CLAccountHash,
   CLByteArray,
   CLKey,
+  CLOption,
   CLPublicKey,
   CLValueBuilder,
   CasperClient,
@@ -23,6 +24,7 @@ import {
   Keys,
   RuntimeArgs,
 } from "casper-js-sdk";
+import { Some } from "ts-results";
 
 export enum MintingMode {
   Installer = 0,
@@ -183,10 +185,10 @@ export class CEP78Client {
     if (args.transfer_filter_contract !== undefined) {
       runtimeArgs.insert(
         "transfer_filter_contract",
-        new CLKey(
-          new CLByteArray(
+        new CLOption(
+          Some(new CLByteArray(
             convertHashStrToHashBuff(args.transfer_filter_contract)
-          )
+          ))
         )
       );
     }

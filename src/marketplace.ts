@@ -1,24 +1,5 @@
 import { config } from "dotenv";
-import {
-  CLAccountHash,
-  CLAnyType,
-  CLByteArray,
-  CLByteArrayBytesParser,
-  CLKey,
-  CLList,
-  CLListBytesParser,
-  CLString,
-  CLU256,
-  CLU256BytesParser,
-  CLU512,
-  CLU512BytesParser,
-  CLU8BytesParser,
-  CLValueBuilder,
-  CLValueParsers,
-  CasperClient,
-  Keys,
-  RuntimeArgs,
-} from "casper-js-sdk";
+import { CasperClient, Keys, RuntimeArgs } from "casper-js-sdk";
 import { getAccountInfo, getDeploy } from "./utils";
 import readline from "readline";
 

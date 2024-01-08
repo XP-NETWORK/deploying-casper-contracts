@@ -11,6 +11,7 @@ import {
   NFTKind,
   NFTMetadataKind,
   NFTOwnershipMode,
+  OwnerReverseLookupMode,
   WhitelistMode,
 } from "casper-cep78-js-client/dist/src";
 import { CEP78Client, MintingMode } from "./nft-client";
@@ -69,6 +70,7 @@ const read = readline.createInterface({
         nftMetadataKind: NFTMetadataKind.Raw,
         ownershipMode: NFTOwnershipMode.Transferable,
         allowMinting: true,
+        ownerReverseLookupMode: OwnerReverseLookupMode.TransfersOnly,
         burnMode: BurnMode.Burnable,
         whitelistMode: WhitelistMode.Unlocked,
         mintingMode: MintingMode.ACL,
@@ -82,7 +84,7 @@ const read = readline.createInterface({
           properties: {},
         },
       },
-      "300000000000",
+      "350000000000",
       key.publicKey,
       readFileSync("./src/xpnft.wasm"),
       [key]
